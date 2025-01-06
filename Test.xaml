@@ -1,4 +1,4 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="Test" VisualBasic.Settings="{x:Null}" sap2010:WorkflowViewState.IdRef="Test_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:snm="clr-namespace:System.Net.Mail;assembly=System.Net.Mail" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:umae="clr-namespace:UiPath.Mail.Activities.Enums;assembly=UiPath.Mail.Activities" xmlns:umam="clr-namespace:UiPath.MicrosoftOffice365.Activities.Mail;assembly=UiPath.MicrosoftOffice365.Activities" xmlns:umame="clr-namespace:UiPath.MicrosoftOffice365.Activities.Mail.Enums;assembly=UiPath.MicrosoftOffice365.Activities" xmlns:umamm="clr-namespace:UiPath.MicrosoftOffice365.Activities.Mail.Models;assembly=UiPath.MicrosoftOffice365.Activities" xmlns:umm="clr-namespace:UiPath.MicrosoftOffice365.Models;assembly=UiPath.MicrosoftOffice365" xmlns:usau="clr-namespace:UiPath.Shared.Activities.Utils;assembly=UiPath.Mail.Activities" xmlns:usau1="clr-namespace:UiPath.Shared.Activities.Utils;assembly=UiPath.MicrosoftOffice365.Activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="Test" VisualBasic.Settings="{x:Null}" sap2010:WorkflowViewState.IdRef="Test_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:moio="clr-namespace:Microsoft.Office.Interop.Outlook;assembly=Microsoft.Office.Interop.Outlook" xmlns:o="clr-namespace:OutlookFolders;assembly=Adrosonic.OutlookFolders.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:snm="clr-namespace:System.Net.Mail;assembly=System.Net.Mail" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:umae="clr-namespace:UiPath.Mail.Activities.Enums;assembly=UiPath.Mail.Activities" xmlns:umam="clr-namespace:UiPath.MicrosoftOffice365.Activities.Mail;assembly=UiPath.MicrosoftOffice365.Activities" xmlns:umame="clr-namespace:UiPath.MicrosoftOffice365.Activities.Mail.Enums;assembly=UiPath.MicrosoftOffice365.Activities" xmlns:umamm="clr-namespace:UiPath.MicrosoftOffice365.Activities.Mail.Models;assembly=UiPath.MicrosoftOffice365.Activities" xmlns:umm="clr-namespace:UiPath.MicrosoftOffice365.Models;assembly=UiPath.MicrosoftOffice365" xmlns:usau="clr-namespace:UiPath.Shared.Activities.Utils;assembly=UiPath.Mail.Activities" xmlns:usau1="clr-namespace:UiPath.Shared.Activities.Utils;assembly=UiPath.MicrosoftOffice365.Activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
       <x:String>System.Activities</x:String>
@@ -44,6 +44,14 @@
       <x:String>UiPath.Shared.Services.Graph.Mail.Contracts</x:String>
       <x:String>UiPath.MicrosoftOffice365</x:String>
       <x:String>UiPath.MicrosoftOffice365.Activities.Mail.Models</x:String>
+      <x:String>OutlookFolders</x:String>
+      <x:String>Microsoft.Office.Interop.Outlook</x:String>
+      <x:String>UiPath.MicrosoftOffice365.Activities.General.Enums</x:String>
+      <x:String>UiPath.MicrosoftOffice365.Activities.General</x:String>
+      <x:String>UiPath.Web</x:String>
+      <x:String>UiPath.Platform.ResourceHandling</x:String>
+      <x:String>System.Security</x:String>
+      <x:String>UiPath.Web.Activities</x:String>
     </sco:Collection>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
@@ -99,19 +107,42 @@
       <AssemblyReference>System.Runtime.Serialization.Primitives</AssemblyReference>
       <AssemblyReference>UiPath.MicrosoftOffice365</AssemblyReference>
       <AssemblyReference>UiPath.MicrosoftOffice365.Activities</AssemblyReference>
+      <AssemblyReference>Adrosonic.OutlookFolders.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.Office.Interop.Outlook</AssemblyReference>
+      <AssemblyReference>UiPath.Web</AssemblyReference>
+      <AssemblyReference>UiPath.Platform</AssemblyReference>
+      <AssemblyReference>System.Runtime.InteropServices</AssemblyReference>
+      <AssemblyReference>UiPath.Web.Activities</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="Test" sap:VirtualizedContainerService.HintSize="874,816" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="Test" sap:VirtualizedContainerService.HintSize="1373,1249" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="scg:List(snm:MailMessage)" Name="Email" />
       <Variable x:TypeArguments="umm:Office365Message" Name="Res" />
+      <Variable x:TypeArguments="scg:List(snm:MailMessage)" Name="email" />
+      <Variable x:TypeArguments="scg:List(snm:MailMessage)" Name="testRes" />
+      <Variable x:TypeArguments="moio:_Folders" Name="oFolders" />
+      <Variable x:TypeArguments="x:Object" Name="ceva" />
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:GetOutlookMailMessages Filter="{x:Null}" FilterByMessageIds="{x:Null}" TimeoutMS="{x:Null}" Account="rpa-project@outlook.com" DisplayName="Get Outlook Mail Messages" GetAttachements="False" sap:VirtualizedContainerService.HintSize="416,57" sap2010:WorkflowViewState.IdRef="GetOutlookMailMessages_1" MailFolder="Inbox" MarkAsRead="False" Messages="[Email]" OnlyUnreadMessages="True" OrderByDate="NewestFirst" Top="30" UseISConnection="True">
+    <ui:InvokeCode ContinueOnError="{x:Null}" Code="' Initialize Outlook application&#xD;&#xA;Dim outlookApp As New Microsoft.Office.Interop.Outlook.Application()&#xD;&#xA;Dim ns As Microsoft.Office.Interop.Outlook.NameSpace = outlookApp.GetNamespace(&quot;MAPI&quot;)&#xD;&#xA;&#xD;&#xA;Try&#xD;&#xA;    ' Validate input arguments&#xD;&#xA;    If String.IsNullOrWhiteSpace(AccountName) Then&#xD;&#xA;        Throw New System.Exception(&quot;Account name must be provided.&quot;)&#xD;&#xA;    End If&#xD;&#xA;    If String.IsNullOrWhiteSpace(ParentFolderName) Then&#xD;&#xA;        Throw New System.Exception(&quot;Parent folder name must be provided.&quot;)&#xD;&#xA;    End If&#xD;&#xA;    If String.IsNullOrWhiteSpace(SubFolderName) Then&#xD;&#xA;        Throw New System.Exception(&quot;Subfolder name must be provided.&quot;)&#xD;&#xA;    End If&#xD;&#xA;&#xD;&#xA;    ' Locate the specified account&#xD;&#xA;    Dim accountFolder As Microsoft.Office.Interop.Outlook.Folder = Nothing&#xD;&#xA;    For i As Integer = 1 To ns.Folders.Count&#xD;&#xA;        Dim folder As Microsoft.Office.Interop.Outlook.Folder = CType(ns.Folders(i), Microsoft.Office.Interop.Outlook.Folder)&#xD;&#xA;        If folder.Name = AccountName Then&#xD;&#xA;            accountFolder = folder&#xD;&#xA;            Exit For&#xD;&#xA;        End If&#xD;&#xA;    Next&#xD;&#xA;&#xD;&#xA;    ' Check if the account was found&#xD;&#xA;    If accountFolder Is Nothing Then&#xD;&#xA;        Throw New System.Exception(&quot;Account not found: &quot; &amp; AccountName)&#xD;&#xA;    End If&#xD;&#xA;&#xD;&#xA;    ' Locate the parent folder under the account&#xD;&#xA;    Dim parentFolder As Microsoft.Office.Interop.Outlook.Folder = Nothing&#xD;&#xA;    For i As Integer = 1 To accountFolder.Folders.Count&#xD;&#xA;        Dim folder As Microsoft.Office.Interop.Outlook.Folder = CType(accountFolder.Folders(i), Microsoft.Office.Interop.Outlook.Folder)&#xD;&#xA;        If folder.Name = ParentFolderName Then&#xD;&#xA;            parentFolder = folder&#xD;&#xA;            Exit For&#xD;&#xA;        End If&#xD;&#xA;    Next&#xD;&#xA;&#xD;&#xA;    ' Check if the parent folder was found&#xD;&#xA;    If parentFolder Is Nothing Then&#xD;&#xA;        Throw New System.Exception(&quot;Parent folder not found: &quot; &amp; ParentFolderName)&#xD;&#xA;    End If&#xD;&#xA;&#xD;&#xA;    ' Check if the subfolder already exists&#xD;&#xA;    Dim existingSubFolder As Microsoft.Office.Interop.Outlook.Folder = Nothing&#xD;&#xA;    For i As Integer = 1 To parentFolder.Folders.Count&#xD;&#xA;        Dim subFolder As Microsoft.Office.Interop.Outlook.Folder = CType(parentFolder.Folders(i), Microsoft.Office.Interop.Outlook.Folder)&#xD;&#xA;        If subFolder.Name = SubFolderName Then&#xD;&#xA;            existingSubFolder = subFolder&#xD;&#xA;            Exit For&#xD;&#xA;        End If&#xD;&#xA;    Next&#xD;&#xA;&#xD;&#xA;    ' Create the subfolder if it doesn't exist&#xD;&#xA;    If existingSubFolder Is Nothing Then&#xD;&#xA;        parentFolder.Folders.Add(SubFolderName)&#xD;&#xA;        Console.WriteLine(&quot;Subfolder created successfully: &quot; &amp; SubFolderName)&#xD;&#xA;    Else&#xD;&#xA;        Console.WriteLine(&quot;Subfolder already exists: &quot; &amp; SubFolderName)&#xD;&#xA;    End If&#xD;&#xA;Catch ex As System.Exception&#xD;&#xA;    Console.WriteLine(&quot;Error: &quot; &amp; ex.Message)&#xD;&#xA;End Try&#xD;&#xA;" DisplayName="Invoke Code" sap:VirtualizedContainerService.HintSize="416,197" sap2010:WorkflowViewState.IdRef="InvokeCode_1">
+      <ui:InvokeCode.Arguments>
+        <InArgument x:TypeArguments="x:String" x:Key="AccountName">
+          <Literal x:TypeArguments="x:String">rpa-project@outlook.com</Literal>
+        </InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="ParentFolderName">
+          <Literal x:TypeArguments="x:String">Invoices</Literal>
+        </InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="SubFolderName">
+          <Literal x:TypeArguments="x:String">Horia</Literal>
+        </InArgument>
+      </ui:InvokeCode.Arguments>
+    </ui:InvokeCode>
+    <ui:GetOutlookMailMessages Filter="{x:Null}" TimeoutMS="{x:Null}" Account="rpa-project@outlook.com" DisplayName="Get Outlook Mail Messages" FilterByMessageIds="[{&quot;&lt;CAAySEmsH2Ue-a2g-X+a2jY=v-a=yduwTpmuv81dzzgofZQrdUA@mail.gmail.com&gt;&quot;}]" GetAttachements="False" sap:VirtualizedContainerService.HintSize="416,57" sap2010:WorkflowViewState.IdRef="GetOutlookMailMessages_2" MailFolder="Inbox" MarkAsRead="False" Messages="[testRes]" OnlyUnreadMessages="True" OrderByDate="NewestFirst" Top="30" UseISConnection="True">
       <ui:GetOutlookMailMessages.ConnectionDetailsBackupSlot>
         <usau:BackupSlot x:TypeArguments="umae:ConnectionDetails" StoredValue="{x:Null}">
           <usau:BackupSlot.BackupValues>
@@ -120,6 +151,8 @@
         </usau:BackupSlot>
       </ui:GetOutlookMailMessages.ConnectionDetailsBackupSlot>
     </ui:GetOutlookMailMessages>
+    <ui:MoveOutlookMessage Account="rpa-project@outlook.com" DisplayName="Move Outlook Mail Message" sap:VirtualizedContainerService.HintSize="416,124" sap2010:WorkflowViewState.IdRef="MoveOutlookMessage_1" MailFolder="Invoices" MailMessage="[testRes(0)]" />
+    <o:CreateFolder DisplayName="Create Folder" FolderName="InvoicesTurisanus" sap:VirtualizedContainerService.HintSize="416,112" sap2010:WorkflowViewState.IdRef="CreateFolder_1" />
     <ui:MessageBox Caption="{x:Null}" ChosenButton="{x:Null}" AutoCloseAfter="00:00:00" DisplayName="Message Box" sap:VirtualizedContainerService.HintSize="416,117" sap2010:WorkflowViewState.IdRef="MessageBox_1" Text="[&quot;TUDOR E SMECHER&quot;]" />
     <umam:GetEmailByIdConnections ConnectionAccountName="{x:Null}" ContinueOnError="{x:Null}" SharedMailbox="{x:Null}" AuthScopesInvalid="False" BodyAsHtml="False" ConnectionId="f9a78ece-4558-4fc3-a091-0cce2e1ba603" DisplayName="Get Email by ID" EmailId="&lt;CAAySEmsH2Ue-a2g-X+a2jY=v-a=yduwTpmuv81dzzgofZQrdUA@mail.gmail.com&gt;" sap:VirtualizedContainerService.HintSize="416,230" sap2010:WorkflowViewState.IdRef="GetEmailByIdConnections_1" Result="[Res]" UseConnectionService="True" UseSharedMailbox="False">
       <umam:GetEmailByIdConnections.MailboxBackup>
