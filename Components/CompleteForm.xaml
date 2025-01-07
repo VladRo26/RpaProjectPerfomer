@@ -1,6 +1,7 @@
 <Activity mc:Ignorable="sap sap2010" x:Class="CompleteForm" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:uix="http://schemas.uipath.com/workflow/activities/uix" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
     <x:Property Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
+    <x:Property Name="in_TransactionItem" Type="InArgument(ui:QueueItem)" />
   </x:Members>
   <VisualBasic.Settings>
     <x:Null />
@@ -42,6 +43,11 @@
       <x:String>UiPath.Platform.ObjectLibrary</x:String>
       <x:String>UiPath.Platform.SyncObjects</x:String>
       <x:String>System.Linq.Expressions</x:String>
+      <x:String>UiPath.UIAutomationNext.Activities.Services.RuntimeAnalyze</x:String>
+      <x:String>System.Security</x:String>
+      <x:String>System.ComponentModel</x:String>
+      <x:String>UiPath.UIAutomationNext.Contracts</x:String>
+      <x:String>UiPath.UIAutomationNext.Models.CV</x:String>
     </sco:Collection>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
@@ -97,15 +103,16 @@
       <AssemblyReference>System.Collections</AssemblyReference>
       <AssemblyReference>System.Collections.NonGeneric</AssemblyReference>
       <AssemblyReference>System.Linq.Expressions</AssemblyReference>
+      <AssemblyReference>System.Runtime.InteropServices</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.EventBasedAsync</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Primitives</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="CompleteForm" sap:VirtualizedContainerService.HintSize="1031,821" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="CompleteForm" sap:VirtualizedContainerService.HintSize="1079,3907" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
-      <Variable x:TypeArguments="x:String" Name="strComponentName">
-        <Variable.Default>
-          <Literal x:TypeArguments="x:String">CompleteForm</Literal>
-        </Variable.Default>
-      </Variable>
+      <Variable x:TypeArguments="x:String" Default="CompleteForm" Name="strComponentName" />
       <Variable x:TypeArguments="x:String" Name="FormPath" />
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
@@ -113,8 +120,8 @@
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:LogMessage DisplayName="StartedComponent" sap:VirtualizedContainerService.HintSize="484,175" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Info" Message="[String.Format(&quot;StartedComponent:{0}&quot;,strComponentName)]" />
-    <Assign sap:VirtualizedContainerService.HintSize="484,115" sap2010:WorkflowViewState.IdRef="Assign_2">
+    <ui:LogMessage DisplayName="StartedComponent" sap:VirtualizedContainerService.HintSize="484,173" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Info" Message="[String.Format(&quot;StartedComponent:{0}&quot;,strComponentName)]" />
+    <Assign sap:VirtualizedContainerService.HintSize="484,114" sap2010:WorkflowViewState.IdRef="Assign_2">
       <Assign.To>
         <OutArgument x:TypeArguments="x:String">[FormPath]</OutArgument>
       </Assign.To>
@@ -122,18 +129,162 @@
         <InArgument x:TypeArguments="x:String">[in_Config("FormPath").ToString()]</InArgument>
       </Assign.Value>
     </Assign>
-    <uix:NApplicationCard AttachMode="ByInstance" DisplayName="Chrome New Tab" sap:VirtualizedContainerService.HintSize="484,342" sap2010:WorkflowViewState.IdRef="NApplicationCard_1" InteractionMode="DebuggerApi" ScopeGuid="73aa84b7-b79d-467d-86bf-df2fd215e467" Version="V2">
+    <uix:NApplicationCard AttachMode="ByInstance" CloseMode="Never" DisplayName="Chrome New Tab" sap:VirtualizedContainerService.HintSize="484,3433" sap2010:WorkflowViewState.IdRef="NApplicationCard_1" InteractionMode="DebuggerApi" OpenMode="Always" ScopeGuid="73aa84b7-b79d-467d-86bf-df2fd215e467" Version="V2" WindowResize="Maximize">
       <uix:NApplicationCard.Body>
         <ActivityAction x:TypeArguments="x:Object">
           <ActivityAction.Argument>
             <DelegateInArgument x:TypeArguments="x:Object" Name="WSSessionData" />
           </ActivityAction.Argument>
-          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="450,92" sap2010:WorkflowViewState.IdRef="Sequence_2">
+          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="450,3184" sap2010:WorkflowViewState.IdRef="Sequence_2">
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
+            <uix:NTypeInto ActivateBefore="True" ClickBeforeMode="Single" DisplayName="Type into vendor name" EmptyFieldMode="SingleLine" sap:VirtualizedContainerService.HintSize="416,286" sap2010:WorkflowViewState.IdRef="NTypeInto_1" ScopeIdentifier="73aa84b7-b79d-467d-86bf-df2fd215e467" Text="[in_TransactionItem.SpecificContent(&quot;Vendor Name&quot;).ToString()]" Version="V4">
+              <uix:NTypeInto.Target>
+                <uix:TargetAnchorable BrowserURL="docs.google.com/forms/d/e/1FAIpQLSfwO_KrS_9c2mrfI8GMXFBJFZqBQUXwrbBiYoizPdbWrtMArA/viewform" CVScreenId="cbcaa34e-34ce-487b-bbea-de6a9a2f034d" ContentHash="-GukRL2Ad0-QpCAxOpcGgw" DesignTimeRectangle="155, 505, 324, 26" DesignTimeScaleFactor="1.100000023841858" ElementType="InputBox" FullSelectorArgument="&lt;webctrl tag='INPUT' type='text' parentid='mG61Hd' idx='1' /&gt;" Guid="391327d1-4864-4620-b338-78f1b635bd1a" InformativeScreenshot="07977c1bc79b43d71039738ef819ebe1.png" IsResponsive="True" Reference="5VsBlbiBdkqguEHwIfsIUg/Ox_UcX9kz0OuJXBK681dgg" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Invoice Details' /&gt;" SearchSteps="Selector" Version="V5" Visibility="Interactive" WaitForReadyArgument="Complete" />
+              </uix:NTypeInto.Target>
+              <uix:NTypeInto.VerifyOptions>
+                <uix:VerifyExecutionTypeIntoOptions DisplayName="{x:Null}" Mode="Appears" Retry="True">
+                  <uix:VerifyExecutionTypeIntoOptions.Timeout>
+                    <InArgument x:TypeArguments="x:Double" />
+                  </uix:VerifyExecutionTypeIntoOptions.Timeout>
+                </uix:VerifyExecutionTypeIntoOptions>
+              </uix:NTypeInto.VerifyOptions>
+            </uix:NTypeInto>
+            <uix:NTypeInto ActivateBefore="True" ClickBeforeMode="Single" DisplayName="Type into invoice number" EmptyFieldMode="SingleLine" sap:VirtualizedContainerService.HintSize="416,286" sap2010:WorkflowViewState.IdRef="NTypeInto_2" ScopeIdentifier="73aa84b7-b79d-467d-86bf-df2fd215e467" Text="[in_TransactionItem.SpecificContent(&quot;Invoice Number&quot;).ToString()]" Version="V4">
+              <uix:NTypeInto.Target>
+                <uix:TargetAnchorable BrowserURL="docs.google.com/forms/d/e/1FAIpQLSfwO_KrS_9c2mrfI8GMXFBJFZqBQUXwrbBiYoizPdbWrtMArA/viewform" CVScreenId="bac86dea-acaa-4eda-ab90-d7fe6bc29ba7" DesignTimeRectangle="155, 705, 324, 26" DesignTimeScaleFactor="1.100000023841858" ElementType="InputBox" FullSelectorArgument="&lt;webctrl aria-labelledby='i6 i9' tag='INPUT' type='text' /&gt;" Guid="953c9da7-572c-446f-b932-5019b600cfb6" InformativeScreenshot="f117de153d22dcae229bd473fabc3aba.png" IsResponsive="True" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Invoice Details' /&gt;" SearchSteps="Selector" Version="V5" Visibility="Interactive" WaitForReadyArgument="Complete" />
+              </uix:NTypeInto.Target>
+              <uix:NTypeInto.VerifyOptions>
+                <uix:VerifyExecutionTypeIntoOptions DisplayName="{x:Null}" Mode="Appears" Retry="True">
+                  <uix:VerifyExecutionTypeIntoOptions.Timeout>
+                    <InArgument x:TypeArguments="x:Double" />
+                  </uix:VerifyExecutionTypeIntoOptions.Timeout>
+                </uix:VerifyExecutionTypeIntoOptions>
+              </uix:NTypeInto.VerifyOptions>
+            </uix:NTypeInto>
+            <uix:NTypeInto ActivateBefore="True" ClickBeforeMode="Single" DisplayName="Type into invoice date" EmptyFieldMode="None" sap:VirtualizedContainerService.HintSize="416,286" sap2010:WorkflowViewState.IdRef="NTypeInto_3" ScopeIdentifier="73aa84b7-b79d-467d-86bf-df2fd215e467" Text="[in_TransactionItem.SpecificContent(&quot;Invoice Date&quot;).ToString()]" Version="V4">
+              <uix:NTypeInto.Target>
+                <uix:TargetAnchorable BrowserURL="docs.google.com/forms/d/e/1FAIpQLSfwO_KrS_9c2mrfI8GMXFBJFZqBQUXwrbBiYoizPdbWrtMArA/viewform" CVScreenId="181f6b7b-f02a-43f3-a708-a7a3cc0e5e2b" CvElementArea="632, 705, 146, 31" CvType="InputBox" DesignTimeRectangle="635, 707, 140, 26" DesignTimeScaleFactor="1.100000023841858" ElementType="InputBox" FuzzySelectorArgument="&lt;webctrl tag='INPUT' type='date' class='whsOnd zHQkBf' aaname='' /&gt;" Guid="fc62a54e-9995-4e32-a311-8d1431952897" InformativeScreenshot="2fdfe3fad53939bb6417b0d88fe1bdd5.png" IsResponsive="True" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Invoice Details' /&gt;" SearchSteps="FuzzySelector, CV" Version="V5" Visibility="Interactive">
+                  <uix:TargetAnchorable.Anchors>
+                    <scg:List x:TypeArguments="uix:ITarget" Capacity="4">
+                      <uix:Target CVScreenId="181f6b7b-f02a-43f3-a708-a7a3cc0e5e2b" CvTextArea="635, 634, 113, 17" CvTextArgument="Invoice Date" CvType="Text" DesignTimeRectangle="635, 631, 112, 26" ElementType="Text" FuzzySelectorArgument="&lt;webctrl parentid='i11' tag='SPAN' type='' class='M7eMe' aaname='Invoice Date' check:innerText='Invoice Date' /&gt;" Guid="a3392fe9-a436-4aff-92a6-bf5cadd3684a" SearchSteps="FuzzySelector, CV" />
+                    </scg:List>
+                  </uix:TargetAnchorable.Anchors>
+                </uix:TargetAnchorable>
+              </uix:NTypeInto.Target>
+              <uix:NTypeInto.VerifyOptions>
+                <uix:VerifyExecutionTypeIntoOptions DisplayName="{x:Null}" Mode="Appears" Retry="True">
+                  <uix:VerifyExecutionTypeIntoOptions.Timeout>
+                    <InArgument x:TypeArguments="x:Double" />
+                  </uix:VerifyExecutionTypeIntoOptions.Timeout>
+                </uix:VerifyExecutionTypeIntoOptions>
+              </uix:NTypeInto.VerifyOptions>
+            </uix:NTypeInto>
+            <uix:NTypeInto ActivateBefore="True" ClickBeforeMode="Single" DisplayName="Type into due date" EmptyFieldMode="SingleLine" sap:VirtualizedContainerService.HintSize="416,286" sap2010:WorkflowViewState.IdRef="NTypeInto_4" ScopeIdentifier="73aa84b7-b79d-467d-86bf-df2fd215e467" Text="[in_TransactionItem.SpecificContent(&quot;Due Date&quot;).ToString()]" Version="V4">
+              <uix:NTypeInto.Target>
+                <uix:TargetAnchorable BrowserURL="docs.google.com/forms/d/e/1FAIpQLSfwO_KrS_9c2mrfI8GMXFBJFZqBQUXwrbBiYoizPdbWrtMArA/viewform" CVScreenId="181f6b7b-f02a-43f3-a708-a7a3cc0e5e2b" CvElementArea="631, 885, 147, 32" CvType="InputBox" DesignTimeRectangle="635, 888, 140, 27" DesignTimeScaleFactor="1.100000023841858" ElementType="InputBox" FuzzySelectorArgument="&lt;webctrl aria-labelledby='i22' tag='INPUT' type='date' class='whsOnd zHQkBf' aaname='' /&gt;" Guid="d3128a6f-e3fe-448e-9b9c-aa0fe1b8c441" InformativeScreenshot="3dfeeddc2834ec2f01c15c1995d65332.png" IsResponsive="True" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Invoice Details' /&gt;" SearchSteps="FuzzySelector, CV" Version="V5" Visibility="Interactive">
+                  <uix:TargetAnchorable.Anchors>
+                    <scg:List x:TypeArguments="uix:ITarget" Capacity="4">
+                      <uix:Target CVScreenId="181f6b7b-f02a-43f3-a708-a7a3cc0e5e2b" CvTextArea="635, 815, 85, 17" CvTextArgument="Due Date" CvType="Text" DesignTimeRectangle="635, 812, 85, 27" ElementType="Text" FuzzySelectorArgument="&lt;webctrl parentid='i17' tag='SPAN' type='' class='M7eMe' aaname='Due Date' check:innerText='Due Date' /&gt;" Guid="627583cf-6dfe-4318-99e9-bdfa4a28bbb8" SearchSteps="FuzzySelector, CV" />
+                    </scg:List>
+                  </uix:TargetAnchorable.Anchors>
+                </uix:TargetAnchorable>
+              </uix:NTypeInto.Target>
+              <uix:NTypeInto.VerifyOptions>
+                <uix:VerifyExecutionTypeIntoOptions DisplayName="{x:Null}" Mode="Appears" Retry="True">
+                  <uix:VerifyExecutionTypeIntoOptions.Timeout>
+                    <InArgument x:TypeArguments="x:Double" />
+                  </uix:VerifyExecutionTypeIntoOptions.Timeout>
+                </uix:VerifyExecutionTypeIntoOptions>
+              </uix:NTypeInto.VerifyOptions>
+            </uix:NTypeInto>
+            <uix:NMouseScroll KeyModifiers="{x:Null}" CursorMotionType="Instant" Direction="Down" DisplayName="Mouse Scroll" sap:VirtualizedContainerService.HintSize="416,269" sap2010:WorkflowViewState.IdRef="NMouseScroll_1" InteractionMode="DebuggerApi" MovementUnits="10" Version="V4">
+              <uix:NMouseScroll.SearchedElement>
+                <uix:SearchedElement>
+                  <uix:SearchedElement.Target>
+                    <uix:TargetAnchorable BrowserURL="docs.google.com/forms/d/e/1FAIpQLSfwO_KrS_9c2mrfI8GMXFBJFZqBQUXwrbBiYoizPdbWrtMArA/viewform" CVScreenId="eee6c3e5-bcb9-4a00-8a73-572a3a892bac" ContentHash="VFAIkZKQ-0mVR-MrIk_r0Q" CvTextArea="634, 885, 132, 17" CvTextArgument="Ordered Items" CvType="Text" DesignTimeRectangle="635, 882, 131, 26" DesignTimeScaleFactor="1.100000023841858" ElementType="Text" FuzzySelectorArgument="&lt;webctrl parentid='i38' tag='SPAN' type='' class='M7eMe' aaname='Ordered Items' check:innerText='Ordered Items' /&gt;" Guid="c09e0d20-846b-4ec3-b420-d3fbf27eea4b" InformativeScreenshot="4535c2d596ed33c7b59058c6975e0086.png" Reference="5VsBlbiBdkqguEHwIfsIUg/8XH74hsDK0GQWGQaEONX7Q" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Invoice Details' /&gt;" SearchSteps="FuzzySelector, CV" Version="V5" Visibility="Interactive" />
+                  </uix:SearchedElement.Target>
+                  <uix:SearchedElement.Timeout>
+                    <InArgument x:TypeArguments="x:Double" />
+                  </uix:SearchedElement.Timeout>
+                </uix:SearchedElement>
+              </uix:NMouseScroll.SearchedElement>
+            </uix:NMouseScroll>
+            <uix:NTypeInto ActivateBefore="True" ClickBeforeMode="Single" DisplayName="Type into vendor adress" EmptyFieldMode="SingleLine" sap:VirtualizedContainerService.HintSize="416,286" sap2010:WorkflowViewState.IdRef="NTypeInto_5" ScopeIdentifier="73aa84b7-b79d-467d-86bf-df2fd215e467" Text="[in_TransactionItem.SpecificContent(&quot;Vendor Adress&quot;).ToString()]" Version="V4">
+              <uix:NTypeInto.Target>
+                <uix:TargetAnchorable BrowserURL="docs.google.com/forms/d/e/1FAIpQLSfwO_KrS_9c2mrfI8GMXFBJFZqBQUXwrbBiYoizPdbWrtMArA/viewform" CVScreenId="8c90a8e1-efa4-4619-9f1a-6535da223814" DesignTimeRectangle="155, 362, 649, 27" DesignTimeScaleFactor="1.100000023841858" ElementType="InputBox" FullSelectorArgument="&lt;webctrl tag='TEXTAREA' /&gt;" Guid="25dae9b7-38c4-403e-be41-776ae10a77cd" InformativeScreenshot="4d39823af2aad250da5b4d2d86d18ef2.png" IsResponsive="True" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Invoice Details' /&gt;" SearchSteps="Selector" Version="V5" Visibility="Interactive" WaitForReadyArgument="Complete" />
+              </uix:NTypeInto.Target>
+              <uix:NTypeInto.VerifyOptions>
+                <uix:VerifyExecutionTypeIntoOptions DisplayName="{x:Null}" Mode="Appears" Retry="True">
+                  <uix:VerifyExecutionTypeIntoOptions.Timeout>
+                    <InArgument x:TypeArguments="x:Double" />
+                  </uix:VerifyExecutionTypeIntoOptions.Timeout>
+                </uix:VerifyExecutionTypeIntoOptions>
+              </uix:NTypeInto.VerifyOptions>
+            </uix:NTypeInto>
+            <uix:NTypeInto ActivateBefore="True" ClickBeforeMode="Single" DisplayName="Type into billing address" EmptyFieldMode="SingleLine" sap:VirtualizedContainerService.HintSize="416,286" sap2010:WorkflowViewState.IdRef="NTypeInto_7" ScopeIdentifier="73aa84b7-b79d-467d-86bf-df2fd215e467" Text="[in_TransactionItem.SpecificContent(&quot;Billing Adress&quot;).ToString()]" Version="V4">
+              <uix:NTypeInto.Target>
+                <uix:TargetAnchorable BrowserURL="docs.google.com/forms/d/e/1FAIpQLSfwO_KrS_9c2mrfI8GMXFBJFZqBQUXwrbBiYoizPdbWrtMArA/viewform" CVScreenId="0f7a1abf-2666-404a-a16a-738ed45f3145" DesignTimeRectangle="155, 544, 649, 42" DesignTimeScaleFactor="1.100000023841858" FullSelectorArgument="&lt;webctrl css-selector='body&amp;gt;div&amp;gt;div&amp;gt;form&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div' idx='22' tag='DIV' /&gt;" Guid="52fab369-1f83-4c93-930d-42c5236da24e" InformativeScreenshot="5115c1bf5c3383a204038bb157717833.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Invoice Details' /&gt;" SearchSteps="Selector" Version="V5" Visibility="Interactive" />
+              </uix:NTypeInto.Target>
+              <uix:NTypeInto.VerifyOptions>
+                <uix:VerifyExecutionTypeIntoOptions DisplayName="{x:Null}" Mode="Appears" Retry="True">
+                  <uix:VerifyExecutionTypeIntoOptions.Timeout>
+                    <InArgument x:TypeArguments="x:Double" />
+                  </uix:VerifyExecutionTypeIntoOptions.Timeout>
+                </uix:VerifyExecutionTypeIntoOptions>
+              </uix:NTypeInto.VerifyOptions>
+            </uix:NTypeInto>
+            <uix:NTypeInto ActivateBefore="True" ClickBeforeMode="Single" DisplayName="Type into shipping address" EmptyFieldMode="SingleLine" sap:VirtualizedContainerService.HintSize="416,286" sap2010:WorkflowViewState.IdRef="NTypeInto_6" ScopeIdentifier="73aa84b7-b79d-467d-86bf-df2fd215e467" Text="[in_TransactionItem.SpecificContent(&quot;Shipping Adress&quot;).ToString()]" Version="V4">
+              <uix:NTypeInto.Target>
+                <uix:TargetAnchorable BrowserURL="docs.google.com/forms/d/e/1FAIpQLSfwO_KrS_9c2mrfI8GMXFBJFZqBQUXwrbBiYoizPdbWrtMArA/viewform" CVScreenId="990c3913-e41c-4e24-be7f-e71038fff6c6" DesignTimeRectangle="155, 531, 649, 27" DesignTimeScaleFactor="1.100000023841858" ElementType="InputBox" FullSelectorArgument="&lt;webctrl aria-labelledby='i33 i36' tag='TEXTAREA' /&gt;" Guid="596329f1-09eb-4116-8529-1e9deb2b377a" InformativeScreenshot="f833a988b5b1b408a8751b41c1354313.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Invoice Details' /&gt;" SearchSteps="Selector" Version="V5" Visibility="Interactive" />
+              </uix:NTypeInto.Target>
+              <uix:NTypeInto.VerifyOptions>
+                <uix:VerifyExecutionTypeIntoOptions DisplayName="{x:Null}" Mode="Appears" Retry="True">
+                  <uix:VerifyExecutionTypeIntoOptions.Timeout>
+                    <InArgument x:TypeArguments="x:Double" />
+                  </uix:VerifyExecutionTypeIntoOptions.Timeout>
+                </uix:VerifyExecutionTypeIntoOptions>
+              </uix:NTypeInto.VerifyOptions>
+            </uix:NTypeInto>
+            <uix:NTypeInto ActivateBefore="True" ClickBeforeMode="Single" DisplayName="Type into ordered items" EmptyFieldMode="SingleLine" sap:VirtualizedContainerService.HintSize="416,286" sap2010:WorkflowViewState.IdRef="NTypeInto_8" ScopeIdentifier="73aa84b7-b79d-467d-86bf-df2fd215e467" Text="[in_TransactionItem.SpecificContent(&quot;Ordered Items&quot;).ToString()]" Version="V4">
+              <uix:NTypeInto.Target>
+                <uix:TargetAnchorable BrowserURL="docs.google.com/forms/d/e/1FAIpQLSfwO_KrS_9c2mrfI8GMXFBJFZqBQUXwrbBiYoizPdbWrtMArA/viewform" CVScreenId="4d57cbf7-7ad7-42bf-930c-e83d299731c9" DesignTimeRectangle="155, 522, 649, 42" DesignTimeScaleFactor="1.100000023841858" FullSelectorArgument="&lt;webctrl css-selector='body&amp;gt;div&amp;gt;div&amp;gt;form&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div' idx='35' tag='DIV' /&gt;" Guid="a34d8d2b-a761-4ef1-bd62-ed05527973de" InformativeScreenshot="991d8164727943ed796bc19b5739197b.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Invoice Details' /&gt;" SearchSteps="Selector" Version="V5" Visibility="Interactive" />
+              </uix:NTypeInto.Target>
+              <uix:NTypeInto.VerifyOptions>
+                <uix:VerifyExecutionTypeIntoOptions DisplayName="{x:Null}" Mode="Appears" Retry="True">
+                  <uix:VerifyExecutionTypeIntoOptions.Timeout>
+                    <InArgument x:TypeArguments="x:Double" />
+                  </uix:VerifyExecutionTypeIntoOptions.Timeout>
+                </uix:VerifyExecutionTypeIntoOptions>
+              </uix:NTypeInto.VerifyOptions>
+            </uix:NTypeInto>
+            <uix:NTypeInto ActivateBefore="True" ClickBeforeMode="Single" DisplayName="Type into total amounts" EmptyFieldMode="SingleLine" sap:VirtualizedContainerService.HintSize="416,286" sap2010:WorkflowViewState.IdRef="NTypeInto_9" ScopeIdentifier="73aa84b7-b79d-467d-86bf-df2fd215e467" Text="[in_TransactionItem.SpecificContent(&quot;Total Amount&quot;).ToString()]" Version="V4">
+              <uix:NTypeInto.Target>
+                <uix:TargetAnchorable BrowserURL="docs.google.com/forms/d/e/1FAIpQLSfwO_KrS_9c2mrfI8GMXFBJFZqBQUXwrbBiYoizPdbWrtMArA/viewform" CVScreenId="4d57cbf7-7ad7-42bf-930c-e83d299731c9" DesignTimeRectangle="155, 719, 324, 44" DesignTimeScaleFactor="1.100000023841858" ElementType="InputBox" FullSelectorArgument="&lt;webctrl css-selector='body&amp;gt;div&amp;gt;div&amp;gt;form&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div' idx='43' tag='DIV' /&gt;" Guid="f8835a49-9645-4629-b193-5991a635a31b" InformativeScreenshot="c12b30b1fc1707f11d2f9de5c5b21295.png" IsResponsive="True" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Invoice Details' /&gt;" SearchSteps="Selector" Version="V5" Visibility="Interactive" WaitForReadyArgument="Complete" />
+              </uix:NTypeInto.Target>
+              <uix:NTypeInto.VerifyOptions>
+                <uix:VerifyExecutionTypeIntoOptions DisplayName="{x:Null}" Mode="Appears" Retry="True">
+                  <uix:VerifyExecutionTypeIntoOptions.Timeout>
+                    <InArgument x:TypeArguments="x:Double" />
+                  </uix:VerifyExecutionTypeIntoOptions.Timeout>
+                </uix:VerifyExecutionTypeIntoOptions>
+              </uix:NTypeInto.VerifyOptions>
+            </uix:NTypeInto>
+            <uix:NTypeInto ActivateBefore="True" ClickBeforeMode="Single" DisplayName="Type into VAT" EmptyFieldMode="SingleLine" sap:VirtualizedContainerService.HintSize="416,279" sap2010:WorkflowViewState.IdRef="NTypeInto_10" ScopeIdentifier="73aa84b7-b79d-467d-86bf-df2fd215e467" Text="[in_TransactionItem.SpecificContent(&quot;VAT&quot;).ToString()]" Version="V4">
+              <uix:NTypeInto.Target>
+                <uix:TargetAnchorable BrowserURL="docs.google.com/forms/d/e/1FAIpQLSfwO_KrS_9c2mrfI8GMXFBJFZqBQUXwrbBiYoizPdbWrtMArA/viewform" CVScreenId="4d57cbf7-7ad7-42bf-930c-e83d299731c9" DesignTimeRectangle="155, 900, 324, 26" DesignTimeScaleFactor="1.100000023841858" ElementType="InputBox" FullSelectorArgument="&lt;webctrl aria-labelledby='i48 i51' tag='INPUT' type='text' /&gt;" Guid="303b470b-88a2-42e4-898b-b609b9d7aa15" InformativeScreenshot="94a2d75b7b895ed1ef4b866fdedfa4f4.png" IsResponsive="True" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Invoice Details' /&gt;" SearchSteps="Selector" Version="V5" Visibility="Interactive" WaitForReadyArgument="Complete" />
+              </uix:NTypeInto.Target>
+              <uix:NTypeInto.VerifyOptions>
+                <uix:VerifyExecutionTypeIntoOptions DisplayName="{x:Null}" Mode="Appears" Retry="True">
+                  <uix:VerifyExecutionTypeIntoOptions.Timeout>
+                    <InArgument x:TypeArguments="x:Double" />
+                  </uix:VerifyExecutionTypeIntoOptions.Timeout>
+                </uix:VerifyExecutionTypeIntoOptions>
+              </uix:NTypeInto.VerifyOptions>
+            </uix:NTypeInto>
           </Sequence>
         </ActivityAction>
       </uix:NApplicationCard.Body>
@@ -141,7 +292,7 @@
         <uix:TargetApp Area="283, 130, 1382, 784" BrowserType="Chrome" ContentHash="i30x1O5ewkyTJ_8dNATQ5w" IconBase64="iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAABEbSURBVGhDxZkJWFXlusc56S1Pk6iVVgx7s9nzwIbNPGwmmWdQFCzQzNA0G8xztXLMzEwDEcTEAU0rTdOwjNSijrNx5NQ5lpkKKoZlAmoDk+t/3+9ba202Rp3uud17v+f5P//3fb+1Wb/3+7612KjLHzHu6N/PdfSwwWOf17gXrzOrtteFWhpORVhbv43xx7cxAThl9239NMTUsN1PW/u82r044W7XTLcBNyukj///DAZd5D708e1WTa0MKrpTHC3noi5G2yRRHOUn7PXX1ecOHVL4f9oMA5+uuG/O1xE+Ld9G2wQORjC9nIEzSAlUrsm5GNvQHOkrXIyihkglWs91/+uNTFfcS+Dy0RAhHGAkXotkgOJKN1PMIVksgYqxH89FyTFzPzztOWyOdLs/brCV+dDfWM9Xj68gg+ntDlBpVWUgGdyRR8p1P3xjt1KD5Fy+PGd+JMjY8IftRu7QuwpPhvu09qyknwjkAHWGlSRD2X0FZ0hHPYKBspigOXiPLvA5X3wRam6NHzIwU8L49wbbThlWBpNXk8GJToDMJUAOKa2k6CIoA7vAIHnsQ42Ry9B2K49FyTF5hBVPuQ/9947UNI9hc5xXtwfGKWYA5PKq8VgC4XNS7Fy7EO5DjRAccwJk3iTFzJvCnGLRqYl7/ntNsFebvM2/ue2Si4DiivGYAcnOajKQVOdgcp2AGWSPRGhZ55lCLULu0EGFEt5vD/bwfBlibuGAbNvppnzbWe4kxypKTjcTYwZGLkM2hVnElWTOoGS/QRz0hpgrTNQ/ggwtbrf8x79+sI8EGRp6rSIDYrEE5Ow8lgGd5VjFG3MJMNQsOABZLEGeC2GxhWJRzvm5EJOwy0ddL2H2PdgD41hFJifw3oA9MFx9rCqDk10EZCCyExCBn3OqMUAxZ3M9LsrMdZauecJ96FwJt/e4+a5bFS8/GdWzmgRFP0R+oCSgnpjNcZdFQE2JYbiypgLtxz5F1zcX4BhdVyFcqcP1xiXork9H9xF/kg1dh/2E7sM2MWcuxzTX7ZjjsUPf77G0ut7ez1XC7hmKiX5V9qpMHEsOkGCd4DigBCytkvOqNo9I5NC/dwjf7aRGUiUoX6HrsFXoOmQlYAn0CK9Tg6zmy2OxJuazxg/rvQs3D7lV4fd6NmykSQviHWBsm3tDi2JbzUVb2lryEq5fvSqhieObVgHv/r0DlbXtWEX6+EQnTjZ3S7PS6L5KO7KYgKwE6sNdhJVz0iFWE0UNkiy8/v1uU+9dGGz3GGvdlCH4bsqE36Ys7BoZJAGK57TXWWRnlWJ2HttWr5BoxLGzvgMTq35AwJw2BM69wj1griSKM0qu0TWd0tXiuH6+QgZD9yEfiskpvs7ApZjmxbmDJmqKxRZMHXXX4xK+i4vuheh668YMgcGzRgoWJ4qwEvTZYAZNLivEjJaSRRICW/HrKFongvtLwP4slsTrzKWm2LXsM/KgneBQosx0nMwSLDmJOY+p1nXIyOt7yxW1HJ4dH5/X0gUfasB3YyasJOZlRWHC2WCjQCvNgVncKOVNmfGCfGwYSFrx1V7Attk9ctSc5pnYZxxN0EPefSyRII1C10EGaKLYRMA9cfdB5kaSwVFzve0mV5c7bUMzrK9l4EaFrUnHcbtZaAxi4KwJE5g3BhmEa+/uEG9M45G11wi01UkirF+vWmtPTnNyPoE+Kw/hylEJmgC5GKyRcj3LqQHKmbMmeG5AQdLAsS735RuLfTakQ1QGd9aAZUOasOixCAd0Q5ARDcFGNGXFS7cEqunMM5C+JTbRt3rmqo91SD+NnuujwQ44UXqHUyPkOmqGxTqupVPvKXFRzQiptaxPh3l9muDchHl9qsDqR+Ks4PCSLr/yonQ7IGXpFfjOau0RAfXKf01O1z3stAvXz5VJ0AR4QCswdTNRLtWc5nTY9qLbDhf9ktgGy/o09CVzVaqQ90Ks0BCgF86QGgIN+PlvR/nNTtBr0UoATAxEjn9bLX3UWh3PgtB2hAMStKiDWg7dtV/NGqGahnI1wbNcg9NblQ0upqoUwVJFwCQzVyqPWZ3FrFad4csbOEMNyA/vR190woeAuJ6TXAIU3bnmXCdn15Pka96Rj1F7EwFqOGj3AbWTi+ra7y1QM9y7D3jj0vvKVhfzulSY1hEs+a8ptjQRZ/x1wmmbVhDvBFR89DMsBCFLhu1V6yOW4Z3rKz78Sfqp9Bzs92aAJBWHlNW130vo3q/i87zGYnIX47pkwUSQvZUC01oSxca1yYKBVDI+GKdtOkcD7KYyhLPMv5H/Yu4vzdDmH0TMqB2ISd4Go99qGHTPCnHh04UJox7D5ldS0LKXXpn7vUQdULFG0LVPSc2RU+yiL0toNaxNEowMmMRi5sY1yTxndcOaJCGwIhGfhRnoS1oTb2DHsXaYn22B6dnL3Bkcd+f4BpevNTx1Dt5J1fAyroXSvAF6313w0W6GUbMWPppyGIyV0IS/C8+UGqhzd2P+jGlofo9eqfsUtAtKAiftU1BTSrh4L45qYJBMegJ1gJPLYnWmGY+H4ae6I7yBC/TgMSBRIlzf6j2nLfwU7pr5UFqqoPR/BxrLu4jQ70SIbgPsxo0Is7wOi//b0KcdJfhjUEbugjm4GjZbGWpKYzh41z4PgenUlvsbXNwm+203rE6mVRZhDauTesX61YkCE6/TdXVbV/EG2Bi7+gqMBGUkSNF/XYZnLkGTuh2eypnw8JoBlboMav0WaDSbYNW+Bot+Dfz066EPqIY++H2YbLtgSj6JgMSvkBp+DLZg2o3gLULxrNHo+MQDXX91F/aWDq11GTbaUCzCibC8GSln0lUmUAPMEwWm0cUZEj6w/W8dBEZwDJBDyrC/lHZ0LdSKmVDo5sHDvAgq71LojXuhN7yNGOMb8DO8AYPPDhh8P0CQ/1GYA4/Cf0Ibsp64jtzUS4iM/5oaqoMqZAteXxRPu+COpVMGlrgMDLl/LIPkoJWJYOLNVMoSa6LE/Mg3n0ktAIWVV6EnQFkMVv/M9w5wVtM+VA+ldh681HOhMC2Ep+8yqHw2I8D2BWJs9cj124PhvjUI9D+AETFnMXF4G5Ymf4eCvJ+Q+FgnchZ2IvOxn2HLbkRAwgmYAjbh45WhSA8fkOHS78/9XTncqkRoV8XzJnQ8pqbIncVq7JrYNwpxteMH3kBTy3UMX9wKHUEzcN1M0Xviy1BFv0kP60vwtCykRhZC5UsPauQBxPifQlbwGWRE/BNJJH/7BZSP78LJZ7pxmjQ9vQuZOR3Imd+Fhxd0Y1RRO2z5l2AKeQ9FYx4XFEP7iX/ku08LqNWtSpBAE6B9NZ7gKX9Vrol1nku1Fw5W8AbYYE0UVF7hwL/QU03QGkvgrX8Jep9SBJgrYQzcCFNuHaISTiI++EtERF9CRkIbChJ/xrTsLlx8qRP7Z3cSZDdGZHfAnt6K8BEtSB/XieyUJtq5HVBYy4R+/e+8lzfgGuvxuJbAZGlWxgk9eXyvOp9bKdaW170mtSCOt+vaEfNSCzQEriUxN+cdRaC+HBZjOYIsGzHVbxfGB+2BfcxXCBrdiIjI44gLb8K4uGuYmvITJmW3Y/XSTqxe1Im/TO5C1rh2hKU2IyjrAsILvkdiwjGYAzbD07YSd7iGTeQN3DSgv6t3cXSrmuCYOKAEyVwjic0xd66xnbjaLh4neXx5oRt7jnegdM+PiM/cCX/DakRYtyIw7wySH2zDIwU/IibzNIJyvoY9/wKic1oQN/JnxMX8gLkTgFObu7F+ZTcKZnRj5PNAzBMCwkZeQnDhJejzT0AR9TaUttW4121SDW+AjcGpXnNkKE0FwVYMFzQVcRSTqOYt5d4ryKVcLc1HbhwjbDvxgYTfewSl1sAStBO+oTugjloKW04Vhhf+FdH53yAwns798OMISmmkJtqRN/I8po39CGXz27BnfTsqFnci95GzSMq4jODYawhObEYwvZFUkbuhCFoDT82SNglf3AWvJVEtMph6BYk5j4f3yhm0I2dzUh712gN4YX8FDl/4O85fvcgbMGXuhiHrAIyx23HPXT7Qq40ItcfDnjob2SNnofChlzHliVKMmrgXk6YewLL/nIVZDy3Eq0XzsS5vCuaGPoDZ+mwsUCbhUY9CmDMaoE08BFXANrhbytslfHEMSvGaQyvMYVQrYgUHOHdZYq4qZ/N8Rxwxq3uXi2I15qak9wVj+j4Y0ujBs02BX9qLGPnIEgwftxXJ+SuRl78GUx6swkMFtUhJO4bJD6zHk7lraScqsOrBUuzKWYwFEYswxW0Enh4UCV3EJ/QL8SDUkbVwNxT37IA83GcE1csQsmR47/JYSc7zN+bOtVikJL1HR+VjBOR/gbhH25A7qROPbQByyoCoUT8iJbYZUcktSItvR27sT0iI+RFpyQIy6FnYOo9+WY4DCtI7oQurg8HvbXqD7YYlfB+8/LdhmPtTJyTsntF/8ACF8mV7q6osFrIYiLN7lcUIokcLLGawzEVF8zlZYXlrheDQ9xEdtQ9FuY14dGwLYpd1Imrxj8jK+g4jIs8gNLsZSfGXMDa9A2PGdCEnvxNjSAVjrmBU+FcICamj70O7YLG9x2XSbYVStwZD7snZIWH3HncEDhurXB4tMIkgMZIoXk7ORLkXec814hzLHXVyy3OLEDTyH0hIr0NBxmk8NPkHxLzQheT075AVfgapMQ2Ij21Env08JkS3oCjmMrLTr2HEwwL/peUbfhA+YR9ASy8Bm99WhBi3QeNdBYVXMW673Ud8jfY1Bid5zWUgfUlZGuWAdNRLo39xHZNqaT4M85ugHn0Y1tGnkDKzA5HzupGQQ+/0yNPIiGxEUVgjZgY1Y1PcVexJvoInIpsxPu4yMjMuISj4I5gNr9NX7k20+m/AplsHvaIUHsr56Nf/jt/+53bXJMUcDkZSELRSciYGx+NlFNPXXDbXa17KuT/3FtRPHodu9OfQjjkNy7SL8BlzAk8Hf47KyG9RYW9DDZ3/z9K6UBPXjmp7Cw5Ff4stIWcRZ/kQWvM2WHVVsGmWw+y9BCb3Wbh7cHLfx+fGcavprkyPReGtBOqAVC6LhueySIKPFFgs15R0DaszsZx9hueLRgheT30Kr6g3oQp/C95R1fC3bsFMn09wJLwZq8KaUB3bhleCL2Kp32lUB57HiajvsdF6DKm6d2A0bIXFuxJW9ctQq+bA02Nye79+t7pJiP969B80QOE2O6iBA5YQeInklHNIij1L7CRxziHHvF3Inp1H30CXwSvgVWiMK+CrrsBE+kOm1PczPGo+gIdtn2Oa9TieMx7Gi/ojKDEdxQqffYj2Xg+rqgK+XstgUT4PnfuTuP3P3r/vv5tuHAMTPefIYB4EpSiJ5KAexSwWXY49i8U5prDyYDTWDMLSmVnQmJZDqyuFiR5Cu1c50r1fxyRdDSYYP0GR5hOM934HU9U1mOr9HiZrajFatw8RilcR6rkCIW7zMfR2/77/g+P3DrYbQ/K06xgog3SW+9II3oB7cQSfo5jXKzfTn4Ef3iJ0fTgAu5f4Itz4IkyqEti8liNSU4lR6rdI25Gr3IwszzUo8NqO6bpPMU1Xjyd1hxHnuRa2+xZdufMWdaqE8T8frJHbA4aNvfdpWz0D58Cv2B0Sa3aElgUz+B7tvQXnNt8tTMoqovf5KoTqN2CE5i0kkzIVG5HjuQ5FqhrMM/wTE1TVyPdaD9OQgp033zTQXbr1Hz9YM+xhd830Kr57krn2vucCG1gTbkvChTffuh+X3unfenJT/4at8/pvXzKpX/GDCX8qdL3tT663DVDZPVxT5oQNm74r/P6FJ5LdSq+NU2y6VqTY9FXqvQt26e9MnTvoZqVduk0fw8XlvwAv5CEyErbZKAAAAABJRU5ErkJggg==" InformativeScreenshot="cc282c35af07697580748638aa577a70.png" Reference="5VsBlbiBdkqguEHwIfsIUg/3Zrm8goeZkubbQASn4ikwA" Selector="&lt;html app='chrome.exe' /&gt;" Title="New Tab" Url="[FormPath]" Version="V2" />
       </uix:NApplicationCard.TargetApp>
     </uix:NApplicationCard>
-    <ui:LogMessage DisplayName="EndedComponent" sap:VirtualizedContainerService.HintSize="484,166" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[String.Format(&quot;EndedComponent:{0}&quot;,strComponentName)]">
+    <ui:LogMessage DisplayName="EndedComponent" sap:VirtualizedContainerService.HintSize="484,164" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[String.Format(&quot;EndedComponent:{0}&quot;,strComponentName)]">
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
           <x:Boolean x:Key="IsExpanded">True</x:Boolean>

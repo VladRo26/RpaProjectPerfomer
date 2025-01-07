@@ -114,7 +114,7 @@
       <AssemblyReference>Microsoft.Office.Interop.Outlook</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="MoveToVendorSubfolder" sap:VirtualizedContainerService.HintSize="1031,1068" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="MoveToVendorSubfolder" sap:VirtualizedContainerService.HintSize="1079,1190" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:Object" Default="[&quot;MoveCreateVendorSubfolder&quot;]" Name="strComponentName" />
       <Variable x:TypeArguments="umm:Office365Message" Name="Email" />
@@ -141,6 +141,7 @@
         <InArgument x:TypeArguments="x:String" x:Key="SubFolderName">[in_VendorName]</InArgument>
       </ui:InvokeCode.Arguments>
     </ui:InvokeCode>
+    <Delay Duration="00:00:10" sap:VirtualizedContainerService.HintSize="416,122" sap2010:WorkflowViewState.IdRef="Delay_1" />
     <umam:MoveEmailConnections ConnectionAccountName="{x:Null}" ContinueOnError="{x:Null}" FolderIdBackup="{x:Reference __ReferenceID0}" Mailbox="{x:Null}" Result="{x:Null}" AuthScopesInvalid="False" BodyAsHtml="False" BrowserFolder="Invoices/Other" BrowserFolderId="AQMkADAwATM0MDAAMi04NjExAC05MGQ3LTAwAi0wMAoALgAAA3sRJ5omrixBnqEsIF0nmiQBALNCgC82eXkATZ2UhRTiXsBqAAABAh91AAAA" ConnectionId="f9a78ece-4558-4fc3-a091-0cce2e1ba603" DisplayName="Move Email" Email="[Email]" sap:VirtualizedContainerService.HintSize="416,281" sap2010:WorkflowViewState.IdRef="MoveEmailConnections_1" ManualEntryFolder="[&quot;Invoices/&quot; + in_VendorName]" SelectionMode="EnterPath" UseConnectionService="True" UseSharedMailbox="False">
       <umam:MoveEmailConnections.MailFolderArgument>
         <umamm:MailFolderArgument ConnectionDescriptor="{x:Null}" ConnectionKey="{x:Null}" BrowserFolder="Invoices/Other" BrowserFolderId="AQMkADAwATM0MDAAMi04NjExAC05MGQ3LTAwAi0wMAoALgAAA3sRJ5omrixBnqEsIF0nmiQBALNCgC82eXkATZ2UhRTiXsBqAAABAh91AAAA" ManualEntryFolder="[&quot;Invoices/&quot; + in_VendorName]" SelectionMode="EnterPath">
