@@ -35,6 +35,7 @@
       <x:String>UiPath.Platform.ObjectLibrary</x:String>
       <x:String>UiPath.Platform.SyncObjects</x:String>
       <x:String>System.Reflection</x:String>
+      <x:String>UiPath.UIAutomationNext.Activities.Services.RuntimeAnalyze</x:String>
     </sco:Collection>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
@@ -85,7 +86,7 @@
       <AssemblyReference>System.Reflection.Metadata</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="Do the necessary procedures for ending the process (e.g., logout) and close the used applications." DisplayName="Close All Applications" sap:VirtualizedContainerService.HintSize="1494,1275" sap2010:WorkflowViewState.IdRef="Sequence_2">
+  <Sequence sap2010:Annotation.AnnotationText="Do the necessary procedures for ending the process (e.g., logout) and close the used applications." DisplayName="Close All Applications" sap:VirtualizedContainerService.HintSize="1494,1284" sap2010:WorkflowViewState.IdRef="Sequence_2">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:String" Name="FormPath" />
     </Sequence.Variables>
@@ -95,23 +96,23 @@
         <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:LogMessage DisplayName="Log message (close applications)" sap:VirtualizedContainerService.HintSize="554,173" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Trace" Message="[&quot;Closing applications...&quot;]" />
-    <ui:KillProcess AppliesTo="{x:Null}" ContinueOnError="{x:Null}" Process="{x:Null}" DisplayName="Kill Process" sap:VirtualizedContainerService.HintSize="554,165" sap2010:WorkflowViewState.IdRef="KillProcess_1" ProcessName="chrome" />
-    <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="554,552" sap2010:WorkflowViewState.IdRef="CommentOut_1">
+    <ui:LogMessage DisplayName="Log message (close applications)" sap:VirtualizedContainerService.HintSize="554,175" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Trace" Message="[&quot;Closing applications...&quot;]" />
+    <ui:KillProcess AppliesTo="{x:Null}" ContinueOnError="{x:Null}" Process="{x:Null}" DisplayName="Kill Process" sap:VirtualizedContainerService.HintSize="554,167" sap2010:WorkflowViewState.IdRef="KillProcess_1" ProcessName="chrome" />
+    <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="554,555" sap2010:WorkflowViewState.IdRef="CommentOut_1">
       <ui:CommentOut.Body>
-        <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="518,441" sap2010:WorkflowViewState.IdRef="Sequence_5">
+        <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="518,444" sap2010:WorkflowViewState.IdRef="Sequence_5">
           <sap:WorkflowViewStateService.ViewState>
             <scg:Dictionary x:TypeArguments="x:String, x:Object">
               <x:Boolean x:Key="IsExpanded">True</x:Boolean>
             </scg:Dictionary>
           </sap:WorkflowViewStateService.ViewState>
-          <uix:NApplicationCard AttachMode="ByInstance" CloseMode="Always" DisplayName="Inbox - rpa-project@outlook.com - Outlook" sap:VirtualizedContainerService.HintSize="484,381" sap2010:WorkflowViewState.IdRef="NApplicationCard_1" InteractionMode="WindowMessages" OpenMode="Never" ScopeGuid="766bd9fb-c17d-495b-8870-7a8587745a69" Version="V2">
+          <uix:NApplicationCard AttachMode="ByInstance" CloseMode="Always" DisplayName="Inbox - rpa-project@outlook.com - Outlook" sap:VirtualizedContainerService.HintSize="484,384" sap2010:WorkflowViewState.IdRef="NApplicationCard_1" InteractionMode="WindowMessages" OpenMode="Never" ScopeGuid="766bd9fb-c17d-495b-8870-7a8587745a69" Version="V2">
             <uix:NApplicationCard.Body>
               <ActivityAction x:TypeArguments="x:Object">
                 <ActivityAction.Argument>
                   <DelegateInArgument x:TypeArguments="x:Object" Name="WSSessionData" />
                 </ActivityAction.Argument>
-                <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="450,91" sap2010:WorkflowViewState.IdRef="Sequence_3">
+                <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="450,92" sap2010:WorkflowViewState.IdRef="Sequence_3">
                   <sap:WorkflowViewStateService.ViewState>
                     <scg:Dictionary x:TypeArguments="x:String, x:Object">
                       <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -127,13 +128,13 @@
         </Sequence>
       </ui:CommentOut.Body>
     </ui:CommentOut>
-    <uix:NApplicationCard AttachMode="ByInstance" CloseMode="Always" DisplayName="Chrome New Tab" sap:VirtualizedContainerService.HintSize="554,331" sap2010:WorkflowViewState.IdRef="NApplicationCard_2" InteractionMode="WindowMessages" OpenMode="Never" ScopeGuid="766bd9fb-c17d-495b-8870-7a8587745a69" Version="V2">
+    <uix:NApplicationCard AttachMode="ByInstance" CloseMode="Never" DisplayName="Chrome New Tab" sap:VirtualizedContainerService.HintSize="554,333" sap2010:WorkflowViewState.IdRef="NApplicationCard_4" InteractionMode="WindowMessages" OpenMode="Never" ScopeGuid="766bd9fb-c17d-495b-8870-7a8587745a69" Version="V2" WindowResize="Maximize">
       <uix:NApplicationCard.Body>
         <ActivityAction x:TypeArguments="x:Object">
           <ActivityAction.Argument>
             <DelegateInArgument x:TypeArguments="x:Object" Name="WSSessionData" />
           </ActivityAction.Argument>
-          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="450,91" sap2010:WorkflowViewState.IdRef="Sequence_4">
+          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="450,92" sap2010:WorkflowViewState.IdRef="Sequence_4">
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
